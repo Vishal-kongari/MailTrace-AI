@@ -79,67 +79,67 @@
   --elevate-1: rgba(0, 0, 0, 0.03);
   --elevate-2: rgba(0, 0, 0, 0.08);
 
-  --background: 222 27% 10%;
+  --background: 210 40% 98%;
 
-  --foreground: 213 28% 92%;
+  --foreground: 220 25% 15%;
 
-  --border: 218 20% 22%;
+  --border: 214 24% 86%;
 
-  --card: 222 24% 13%;
+  --card: 0 0% 100%;
 
-  --card-foreground: 213 28% 92%;
+  --card-foreground: 220 25% 15%;
 
-  --card-border: 218 20% 23%;
+  --card-border: 214 24% 86%;
 
-  --sidebar: 224 30% 8%;
+  --sidebar: 215 30% 96%;
 
-  --sidebar-foreground: 215 22% 76%;
+  --sidebar-foreground: 220 22% 24%;
 
-  --sidebar-border: 218 21% 19%;
+  --sidebar-border: 214 24% 84%;
 
-  --sidebar-primary: 174 76% 47%;
+  --sidebar-primary: 174 75% 32%;
 
-  --sidebar-primary-foreground: 224 30% 8%;
+  --sidebar-primary-foreground: 0 0% 100%;
 
-  --sidebar-accent: 219 24% 16%;
+  --sidebar-accent: 210 34% 91%;
 
-  --sidebar-accent-foreground: 213 28% 92%;
+  --sidebar-accent-foreground: 220 22% 18%;
 
-  --sidebar-ring: 174 76% 47%;
+  --sidebar-ring: 174 75% 32%;
 
-  --popover: 222 24% 15%;
+  --popover: 0 0% 100%;
 
-  --popover-foreground: 213 28% 92%;
+  --popover-foreground: 220 25% 15%;
 
-  --popover-border: 218 20% 25%;
+  --popover-border: 214 24% 82%;
 
-  --primary: 174 76% 47%;
+  --primary: 174 75% 32%;
 
-  --primary-foreground: 224 30% 8%;
+  --primary-foreground: 0 0% 100%;
 
-  --secondary: 220 23% 18%;
+  --secondary: 211 32% 93%;
 
-  --secondary-foreground: 213 28% 92%;
+  --secondary-foreground: 220 25% 18%;
 
-  --muted: 220 19% 18%;
+  --muted: 210 30% 94%;
 
-  --muted-foreground: 216 14% 59%;
+  --muted-foreground: 215 16% 42%;
 
-  --accent: 39 93% 61%;
+  --accent: 39 90% 42%;
 
-  --accent-foreground: 224 30% 8%;
+  --accent-foreground: 0 0% 100%;
 
-  --destructive: 0 72% 58%;
+  --destructive: 0 72% 46%;
 
   --destructive-foreground: 0 0% 100%;
 
-  --input: 218 20% 27%;
-  --ring: 174 76% 47%;
-  --chart-1: 174 76% 47%;
-  --chart-2: 39 93% 61%;
-  --chart-3: 198 85% 60%;
-  --chart-4: 0 72% 58%;
-  --chart-5: 265 74% 68%;
+  --input: 214 24% 78%;
+  --ring: 174 75% 32%;
+  --chart-1: 174 75% 32%;
+  --chart-2: 39 90% 42%;
+  --chart-3: 198 75% 42%;
+  --chart-4: 0 72% 46%;
+  --chart-5: 265 60% 48%;
 
   --app-font-sans: 'Manrope', sans-serif;
   --app-font-serif: Georgia, serif;
