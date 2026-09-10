@@ -1,0 +1,1 @@
+- [MailTrace upload contract](mailtrace-openapi.md) — raw octet stream avoids browser-only File/Blob globals in shared Node validation.

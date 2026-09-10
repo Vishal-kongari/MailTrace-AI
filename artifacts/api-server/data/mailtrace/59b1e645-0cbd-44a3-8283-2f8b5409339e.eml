@@ -1,0 +1,11 @@
+From: Billing Team <alerts@acme-security.example>
+To: analyst@example.com
+Reply-To: verify@acme-secure.top
+Subject: Urgent account verification required
+Date: Thu, 10 Sep 2026 15:20:00 +0530
+Message-ID: <sample-1@acme-security.example>
+Received: from relay.example.net (203.0.113.42) by mx.example.com
+Authentication-Results: mx.example.com; spf=fail dkim=none dmarc=fail
+Content-Type: text/plain; charset=utf-8
+
+Urgent action required immediately. Verify your account within 2 hours at https://acme-secure.top/login and send your password.

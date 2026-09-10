@@ -3,13 +3,17 @@ info:
   # Do not change the title, if the title changes, the import paths will be broken
   title: Api
   version: 0.1.0
-  description: API specification
+  description: MailTrace AI email forensics API
 servers:
   - url: /api
     description: Base API path
 tags:
   - name: health
     description: Health operations
+  - name: dashboard
+  - name: emails
+  - name: investigations
+  - name: reports
 paths:
   /healthz:
     get:
@@ -24,7 +28,362 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/HealthStatus"
+  /dashboard/stats:
+    get:
+      operationId: getDashboardStats
+      tags: [dashboard]
+      summary: Return live dashboard totals
+      responses:
+        "200":
+          description: Dashboard totals
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DashboardStats"
+  /dashboard/activity:
+    get:
+      operationId: getDashboardActivity
+      tags: [dashboard]
+      summary: Return recent analysis activity
+      responses:
+        "200":
+          description: Recent activity
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/ActivityItem"
+  /emails:
+    get:
+      operationId: listEmails
+      tags: [emails]
+      summary: List analyzed emails
+      parameters:
+        - $ref: "#/components/parameters/Limit"
+        - $ref: "#/components/parameters/Search"
+      responses:
+        "200":
+          description: Emails
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/EmailSummary"
+  /emails/upload:
+    post:
+      operationId: uploadEmail
+      tags: [emails]
+      summary: Upload and analyze an email file
+      requestBody:
+        required: true
+        content:
+          application/octet-stream:
+            schema:
+              type: string
+      responses:
+        "201":
+          description: Uploaded email
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/EmailDetail"
+        "400":
+          description: Invalid email file
+  /emails/{id}:
+    get:
+      operationId: getEmail
+      tags: [emails]
+      summary: Get an analyzed email
+      parameters:
+        - $ref: "#/components/parameters/EmailId"
+      responses:
+        "200":
+          description: Email detail
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/EmailDetail"
+        "404":
+          description: Email not found
+  /emails/{id}/analyze:
+    post:
+      operationId: analyzeEmail
+      tags: [emails]
+      summary: Re-run email analysis
+      parameters:
+        - $ref: "#/components/parameters/EmailId"
+      responses:
+        "200":
+          description: Updated email detail
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/EmailDetail"
+  /emails/{id}/status:
+    get:
+      operationId: getEmailStatus
+      tags: [emails]
+      summary: Get analysis status
+      parameters:
+        - $ref: "#/components/parameters/EmailId"
+      responses:
+        "200":
+          description: Analysis status
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/EmailStatus"
+  /emails/{id}/headers:
+    get:
+      operationId: getEmailHeaders
+      tags: [emails]
+      summary: Get parsed headers
+      parameters:
+        - $ref: "#/components/parameters/EmailId"
+      responses:
+        "200":
+          description: Parsed headers
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/HeaderItem"
+  /emails/{id}/authentication:
+    get:
+      operationId: getEmailAuthentication
+      tags: [emails]
+      summary: Get authentication results
+      parameters:
+        - $ref: "#/components/parameters/EmailId"
+      responses:
+        "200":
+          description: Authentication results
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AuthenticationResult"
+  /emails/{id}/urls:
+    get:
+      operationId: getEmailUrls
+      tags: [emails]
+      summary: Get extracted URLs
+      parameters:
+        - $ref: "#/components/parameters/EmailId"
+      responses:
+        "200":
+          description: Extracted URLs
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/UrlIndicator"
+  /emails/{id}/domains:
+    get:
+      operationId: getEmailDomains
+      tags: [emails]
+      summary: Get extracted domains
+      parameters:
+        - $ref: "#/components/parameters/EmailId"
+      responses:
+        "200":
+          description: Extracted domains
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/DomainIndicator"
+  /emails/{id}/ips:
+    get:
+      operationId: getEmailIps
+      tags: [emails]
+      summary: Get extracted IP addresses
+      parameters:
+        - $ref: "#/components/parameters/EmailId"
+      responses:
+        "200":
+          description: Extracted IP addresses
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/IpIndicator"
+  /emails/{id}/relay-trace:
+    get:
+      operationId: getEmailRelayTrace
+      tags: [emails]
+      summary: Get relay chain
+      parameters:
+        - $ref: "#/components/parameters/EmailId"
+      responses:
+        "200":
+          description: Relay chain
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/RelayHop"
+  /emails/{id}/geolocation:
+    get:
+      operationId: getEmailGeolocation
+      tags: [emails]
+      summary: Get available geolocation
+      parameters:
+        - $ref: "#/components/parameters/EmailId"
+      responses:
+        "200":
+          description: Geolocation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/GeoPoint"
+  /emails/{id}/graph:
+    get:
+      operationId: getEmailGraph
+      tags: [emails]
+      summary: Build a graph from observed entities
+      parameters:
+        - $ref: "#/components/parameters/EmailId"
+      responses:
+        "200":
+          description: Threat graph
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ThreatGraph"
+  /findings:
+    get:
+      operationId: listFindings
+      tags: [emails]
+      summary: List evidence-backed findings
+      responses:
+        "200":
+          description: Findings
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Finding"
+  /investigations:
+    get:
+      operationId: listInvestigations
+      tags: [investigations]
+      summary: List investigation cases
+      responses:
+        "200":
+          description: Investigations
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Investigation"
+    post:
+      operationId: createInvestigation
+      tags: [investigations]
+      summary: Create an investigation case
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/InvestigationInput"
+      responses:
+        "201":
+          description: Investigation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Investigation"
+  /investigations/{id}:
+    get:
+      operationId: getInvestigation
+      tags: [investigations]
+      summary: Get an investigation case
+      parameters:
+        - $ref: "#/components/parameters/InvestigationId"
+      responses:
+        "200":
+          description: Investigation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Investigation"
+    patch:
+      operationId: updateInvestigation
+      tags: [investigations]
+      summary: Update an investigation case
+      parameters:
+        - $ref: "#/components/parameters/InvestigationId"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/InvestigationUpdate"
+      responses:
+        "200":
+          description: Investigation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Investigation"
+  /reports:
+    post:
+      operationId: createReport
+      tags: [reports]
+      summary: Create a report for an email
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ReportInput"
+      responses:
+        "201":
+          description: Report metadata
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Report"
 components:
+  parameters:
+    EmailId:
+      name: id
+      in: path
+      required: true
+      schema:
+        type: string
+    InvestigationId:
+      name: id
+      in: path
+      required: true
+      schema:
+        type: string
+    Limit:
+      name: limit
+      in: query
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 25
+    Search:
+      name: search
+      in: query
+      required: false
+      schema:
+        type: string
   schemas:
     HealthStatus:
       type: object
@@ -33,4 +392,191 @@ components:
           type: string
       required:
         - status
+    EmailSummary:
+      type: object
+      required: [id, subject, sender, receivedAt, analysisStatus, riskScore, threatType, confidence, createdAt]
+      properties:
+        id: { type: string }
+        subject: { type: string }
+        sender: { type: string }
+        receivedAt: { type: ["string", "null"], format: date-time }
+        analysisStatus: { type: string }
+        riskScore: { type: ["number", "null"] }
+        threatType: { type: ["string", "null"] }
+        confidence: { type: ["number", "null"] }
+        createdAt: { type: string, format: date-time }
+    EmailDetail:
+      allOf:
+        - $ref: "#/components/schemas/EmailSummary"
+        - type: object
+          required: [recipient, replyTo, messageId, body, sha256, findings]
+          properties:
+            recipient: { type: ["string", "null"] }
+            replyTo: { type: ["string", "null"] }
+            messageId: { type: ["string", "null"] }
+            body: { type: string }
+            sha256: { type: string }
+            findings:
+              type: array
+              items: { $ref: "#/components/schemas/Finding" }
+    EmailStatus:
+      type: object
+      required: [id, analysisStatus, progress]
+      properties:
+        id: { type: string }
+        analysisStatus: { type: string }
+        progress: { type: integer, minimum: 0, maximum: 100 }
+    HeaderItem:
+      type: object
+      required: [name, value]
+      properties:
+        name: { type: string }
+        value: { type: string }
+    AuthenticationResult:
+      type: object
+      required: [spf, dkim, dmarc, source]
+      properties:
+        spf: { type: string }
+        dkim: { type: string }
+        dmarc: { type: string }
+        source: { type: string }
+    Finding:
+      type: object
+      required: [id, title, detail, severity, source]
+      properties:
+        id: { type: string }
+        title: { type: string }
+        detail: { type: string }
+        severity: { type: string }
+        source: { type: string }
+    UrlIndicator:
+      type: object
+      required: [value, domain, source, status]
+      properties:
+        value: { type: string }
+        domain: { type: string }
+        source: { type: string }
+        status: { type: string }
+    DomainIndicator:
+      type: object
+      required: [value, source, status]
+      properties:
+        value: { type: string }
+        source: { type: string }
+        status: { type: string }
+    IpIndicator:
+      type: object
+      required: [value, source, status]
+      properties:
+        value: { type: string }
+        source: { type: string }
+        status: { type: string }
+        country: { type: ["string", "null"] }
+        asn: { type: ["string", "null"] }
+    RelayHop:
+      type: object
+      required: [position, value, source]
+      properties:
+        position: { type: integer }
+        value: { type: string }
+        source: { type: string }
+    GeoPoint:
+      type: object
+      required: [ip, country, source]
+      properties:
+        ip: { type: string }
+        country: { type: ["string", "null"] }
+        city: { type: ["string", "null"] }
+        latitude: { type: ["number", "null"] }
+        longitude: { type: ["number", "null"] }
+        source: { type: string }
+    ThreatGraph:
+      type: object
+      required: [nodes, edges]
+      properties:
+        nodes:
+          type: array
+          items:
+            $ref: "#/components/schemas/GraphNode"
+        edges:
+          type: array
+          items:
+            $ref: "#/components/schemas/GraphEdge"
+    GraphNode:
+      type: object
+      required: [id, label, type]
+      properties:
+        id: { type: string }
+        label: { type: string }
+        type: { type: string }
+    GraphEdge:
+      type: object
+      required: [source, target, relation]
+      properties:
+        source: { type: string }
+        target: { type: string }
+        relation: { type: string }
+    ActivityItem:
+      type: object
+      required: [id, label, detail, timestamp, tone]
+      properties:
+        id: { type: string }
+        label: { type: string }
+        detail: { type: string }
+        timestamp: { type: string, format: date-time }
+        tone: { type: string }
+    DashboardStats:
+      type: object
+      required: [totalEmails, highRiskEmails, openInvestigations, extractedIndicators, lastUpdated]
+      properties:
+        totalEmails: { type: integer }
+        highRiskEmails: { type: integer }
+        openInvestigations: { type: integer }
+        extractedIndicators: { type: integer }
+        lastUpdated: { type: string, format: date-time }
+    Investigation:
+      type: object
+      required: [id, title, status, priority, createdAt, updatedAt, emailIds]
+      properties:
+        id: { type: string }
+        title: { type: string }
+        status: { type: string }
+        priority: { type: string }
+        notes: { type: ["string", "null"] }
+        createdAt: { type: string, format: date-time }
+        updatedAt: { type: string, format: date-time }
+        emailIds:
+          type: array
+          items: { type: string }
+    InvestigationInput:
+      type: object
+      required: [title]
+      properties:
+        title: { type: string, minLength: 1 }
+        notes: { type: string }
+        priority: { type: string }
+        emailIds:
+          type: array
+          items: { type: string }
+    InvestigationUpdate:
+      type: object
+      properties:
+        title: { type: string }
+        status: { type: string }
+        priority: { type: string }
+        notes: { type: string }
+    ReportInput:
+      type: object
+      required: [emailId]
+      properties:
+        emailId: { type: string }
+    Report:
+      type: object
+      required: [id, emailId, status, createdAt, downloadUrl]
+      properties:
+        id: { type: string }
+        emailId: { type: string }
+        status: { type: string }
+        createdAt: { type: string, format: date-time }
+        downloadUrl: { type: string }
 

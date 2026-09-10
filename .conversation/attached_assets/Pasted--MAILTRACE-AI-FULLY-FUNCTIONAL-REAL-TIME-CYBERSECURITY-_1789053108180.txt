@@ -1,0 +1,1809 @@
+# MAILTRACE AI — FULLY FUNCTIONAL REAL-TIME CYBERSECURITY PLATFORM
+
+Build **MailTrace AI** as a **real, fully functional, end-to-end cybersecurity application**, not a UI prototype.
+
+The website must perform actual email analysis using a real backend and real processing pipelines.
+
+# 🛡️ MAILTRACE AI
+
+## **One Suspicious Email. An Entire Threat Story.**
+
+SIH 2026 Problem Statement:
+
+**SIH26106 — AI-Powered Email Threat Detection, Geolocation and Forensic Intelligence Platform**
+
+Core workflow:
+
+**Detect → Explain → Trace → Enrich → Correlate → Investigate → Report**
+
+---
+
+# 🚨 CRITICAL REQUIREMENT — NO DUMMY DATA
+
+This is the most important requirement.
+
+## DO NOT BUILD A STATIC DEMO.
+
+Do NOT hardcode:
+
+* Fake dashboard statistics
+* Fake threat results
+* Fake email analysis
+* Fake IP intelligence
+* Fake geolocation
+* Fake threat graphs
+* Fake campaigns
+* Fake investigation cases
+* Fake AI responses
+* Fake reports
+* Fake live events
+
+The application must use **real data generated from actual user actions and actual backend processing**.
+
+If there is no data, display:
+
+> **No data available yet**
+
+Do not manufacture data simply to make the dashboard look populated.
+
+---
+
+# 1. REAL APPLICATION ARCHITECTURE
+
+Build a complete full-stack application.
+
+## Frontend
+
+Use:
+
+* Next.js / React
+* TypeScript
+* Tailwind CSS
+* shadcn/ui
+* Lucide Icons
+* Recharts
+* Framer Motion
+* React Query / TanStack Query
+
+## Backend
+
+Use:
+
+* Python
+* FastAPI
+* Pydantic
+* SQLAlchemy
+
+## Database
+
+Use:
+
+* PostgreSQL
+
+## Background Processing
+
+Use:
+
+* Celery or FastAPI background tasks
+* Redis for job queue/cache where appropriate
+
+## Deployment
+
+Use:
+
+* Docker
+* Docker Compose
+
+The frontend must communicate with the backend through actual REST APIs.
+
+---
+
+# 2. REAL DATABASE
+
+Create PostgreSQL tables for:
+
+### Users
+
+```text
+users
+```
+
+Fields:
+
+* id
+* name
+* email
+* password_hash
+* role
+* created_at
+* updated_at
+
+### Emails
+
+```text
+emails
+```
+
+Fields:
+
+* id
+* message_id
+* sender
+* recipient
+* reply_to
+* subject
+* body
+* received_at
+* raw_email_path
+* sha256
+* analysis_status
+* risk_score
+* threat_type
+* confidence
+* created_at
+
+### Email Headers
+
+```text
+email_headers
+```
+
+Store:
+
+* header_name
+* header_value
+* email_id
+
+### Authentication Results
+
+```text
+email_authentication
+```
+
+Store:
+
+* SPF
+* DKIM
+* DMARC
+* results
+* domains
+* timestamps
+
+### URLs
+
+```text
+urls
+```
+
+Store:
+
+* URL
+* domain
+* email_id
+* risk_score
+* detection_status
+* redirect_chain
+
+### Domains
+
+```text
+domains
+```
+
+Store:
+
+* domain
+* registration information
+* DNS information
+* MX records
+* similarity score
+* reputation
+* risk score
+
+### IP Addresses
+
+```text
+ips
+```
+
+Store:
+
+* IP
+* ASN
+* ISP
+* country
+* city
+* latitude
+* longitude
+* reputation
+* first_seen
+* last_seen
+
+### Campaigns
+
+```text
+campaigns
+```
+
+Store:
+
+* name
+* confidence
+* related emails
+* related domains
+* related IPs
+* related URLs
+* created_at
+
+### Findings
+
+```text
+findings
+```
+
+Store:
+
+* title
+* severity
+* evidence
+* email_id
+* risk_score
+* status
+* created_at
+
+### Investigations
+
+```text
+investigations
+```
+
+Store:
+
+* case number
+* title
+* severity
+* status
+* analyst
+* created_at
+* updated_at
+
+### Evidence
+
+```text
+evidence
+```
+
+Store:
+
+* evidence_id
+* email_id
+* evidence_type
+* SHA-256
+* source
+* timestamp
+* investigator
+* case_id
+
+### Audit Logs
+
+```text
+audit_logs
+```
+
+Record every important user/system action.
+
+---
+
+# 3. REAL EMAIL UPLOAD
+
+The Email Scanner must accept actual files.
+
+Support:
+
+```text
+.eml
+.msg
+.txt
+```
+
+Allow drag-and-drop.
+
+When the user uploads an email:
+
+1. Upload file to backend.
+2. Validate file.
+3. Calculate SHA-256.
+4. Store original evidence securely.
+5. Parse MIME structure.
+6. Extract headers.
+7. Extract body.
+8. Extract attachments.
+9. Extract URLs.
+10. Extract domains.
+11. Extract IP addresses.
+12. Start threat analysis.
+13. Store results in PostgreSQL.
+
+Display:
+
+```text
+FILE RECEIVED
+SHA-256 GENERATED
+PARSING
+ANALYZING
+ENRICHING
+COMPLETE
+```
+
+---
+
+# 4. REAL EMAIL PARSING
+
+Use Python's actual email/MIME parsing libraries.
+
+Extract:
+
+* From
+* To
+* CC
+* BCC
+* Reply-To
+* Subject
+* Date
+* Message-ID
+* Return-Path
+* Received headers
+* MIME boundaries
+* Content-Type
+* Attachments
+* HTML body
+* Plain text body
+
+Do not simulate this information.
+
+Everything displayed must originate from the uploaded email.
+
+---
+
+# 5. REAL HEADER ANALYSIS
+
+Parse every `Received` header.
+
+Build the actual mail relay chain.
+
+Example:
+
+```text
+Sender
+   ↓
+Relay 1
+   ↓
+Relay 2
+   ↓
+Relay 3
+   ↓
+Recipient
+```
+
+Extract IP addresses from the actual headers.
+
+For every extracted IP, perform enrichment.
+
+---
+
+# 6. REAL SPF ANALYSIS
+
+Perform actual SPF evaluation where technically possible.
+
+Retrieve the sender domain's SPF record through DNS.
+
+Display:
+
+```text
+SPF
+
+Status:
+PASS / FAIL / SOFTFAIL / NEUTRAL / NONE / ERROR
+
+Record:
+actual DNS TXT record
+
+Evaluated IP:
+actual sending IP
+```
+
+Do not hardcode SPF results.
+
+If the system cannot evaluate the result reliably, clearly display:
+
+> SPF evaluation unavailable
+
+Never invent PASS/FAIL.
+
+---
+
+# 7. REAL DKIM ANALYSIS
+
+Parse the actual DKIM-Signature header.
+
+Extract:
+
+* selector
+* domain
+* algorithm
+* canonicalization
+* signed headers
+
+Where possible, perform cryptographic DKIM verification using the public key retrieved from DNS.
+
+Display:
+
+```text
+DKIM
+
+Signature:
+Present
+
+Verification:
+PASS / FAIL / NOT VERIFIED
+
+Selector:
+actual selector
+
+Domain:
+actual domain
+```
+
+Never fabricate a DKIM result.
+
+---
+
+# 8. REAL DMARC ANALYSIS
+
+Retrieve the actual DMARC policy from:
+
+```text
+_dmarc.domain.com
+```
+
+Evaluate:
+
+* SPF alignment
+* DKIM alignment
+* DMARC policy
+* policy action
+
+Display the actual result.
+
+---
+
+# 9. REAL URL EXTRACTION
+
+Extract URLs from:
+
+* Plain text
+* HTML
+* Anchor tags
+* Embedded content
+
+For every URL show:
+
+```text
+URL
+Domain
+Scheme
+Path
+Query
+Redirect information
+Risk
+```
+
+Do not create URLs that were not present in the email.
+
+---
+
+# 10. REAL DOMAIN ANALYSIS
+
+For every extracted domain:
+
+Perform actual DNS resolution.
+
+Retrieve where possible:
+
+* A
+* AAAA
+* MX
+* NS
+* TXT
+* CNAME
+
+Display actual results.
+
+Also retrieve domain registration information where legally and technically available through appropriate RDAP/WHOIS services.
+
+If information is unavailable:
+
+> Data unavailable
+
+Never fabricate domain records.
+
+---
+
+# 11. REAL IP INTELLIGENCE
+
+For every extracted public IP:
+
+Perform real enrichment.
+
+Retrieve available:
+
+* Country
+* Region
+* City
+* Latitude
+* Longitude
+* ASN
+* ISP
+* Organization
+* Reverse DNS
+* Reputation
+
+Use configured threat-intelligence providers through secure backend integrations.
+
+Do NOT expose API keys in the frontend.
+
+---
+
+# 12. REAL GEOLOCATION
+
+Use actual GeoIP data for extracted public IP addresses.
+
+The map must only display locations returned by the backend.
+
+Example:
+
+```text
+IP:
+actual extracted IP
+
+Country:
+actual country
+
+City:
+actual city
+
+ASN:
+actual ASN
+
+ISP:
+actual ISP
+```
+
+Clearly distinguish:
+
+**IP geolocation is an infrastructure-origin indicator, not proof of an individual's physical location or identity.**
+
+Never claim:
+
+> "This is the attacker's location."
+
+Use:
+
+> "Infrastructure origin indicator."
+
+---
+
+# 13. REAL THREAT INTELLIGENCE
+
+Create a backend threat-intelligence service.
+
+Support configurable providers for:
+
+* IP reputation
+* Domain reputation
+* URL reputation
+* Malware indicators
+* DNS intelligence
+* ASN intelligence
+
+API keys must be stored in environment variables.
+
+Example:
+
+```text
+VIRUSTOTAL_API_KEY=
+ABUSEIPDB_API_KEY=
+IPINFO_TOKEN=
+```
+
+Do not commit secrets to GitHub.
+
+---
+
+# 14. PROVIDER FAILURE HANDLING
+
+External services can fail.
+
+The application must handle:
+
+* API timeout
+* Rate limits
+* Invalid API key
+* Network failure
+* No reputation result
+* Provider unavailable
+
+Display:
+
+> Threat intelligence provider unavailable.
+
+Do not replace unavailable results with fake data.
+
+---
+
+# 15. REAL AI THREAT DETECTION
+
+Create an actual backend analysis engine.
+
+Analyze:
+
+### Email language
+
+Detect:
+
+* urgency
+* credential requests
+* financial requests
+* impersonation
+* suspicious instructions
+* social engineering
+* account verification requests
+
+### Sender
+
+Analyze:
+
+* display name
+* sender domain
+* reply-to mismatch
+* domain similarity
+
+### URLs
+
+Analyze:
+
+* suspicious domains
+* URL structure
+* redirects
+* suspicious TLDs
+* credential-related paths
+
+### Authentication
+
+Analyze:
+
+* SPF
+* DKIM
+* DMARC
+
+### Infrastructure
+
+Analyze:
+
+* IP reputation
+* ASN
+* geolocation
+* domain age where available
+* hosting indicators
+
+Combine these features into a real risk score.
+
+---
+
+# 16. AI MODEL
+
+Implement an actual classification pipeline.
+
+Use:
+
+* Scikit-learn
+* XGBoost
+* NLP
+* Transformer model where appropriate
+
+The model should produce:
+
+```text
+Threat Type
+Risk Score
+Confidence
+Features
+Evidence
+```
+
+If a trained model is not available initially, build the feature-engineering and scoring pipeline so a trained model can be plugged in.
+
+Do NOT claim model accuracy numbers unless they are calculated from a real evaluation dataset.
+
+Never display:
+
+> Accuracy: 96.3%
+
+unless the system actually measured that value.
+
+---
+
+# 17. EXPLAINABLE AI
+
+Every AI decision must have evidence.
+
+Example:
+
+```text
+WHY WAS THIS EMAIL FLAGGED?
+
+✓ Reply-To domain differs from sender domain
+
+✓ DMARC alignment failed
+
+✓ Suspicious credential-related URL detected
+
+✓ Sender domain resembles another domain
+
+✓ Source infrastructure has negative reputation
+
+✓ Urgency language detected
+```
+
+The evidence must be generated from actual analysis.
+
+Do not hardcode explanations.
+
+---
+
+# 18. REAL RISK SCORE
+
+Calculate risk dynamically.
+
+For example:
+
+```text
+Authentication
+URL intelligence
+Domain intelligence
+IP intelligence
+Language analysis
+Sender consistency
+Infrastructure signals
+```
+
+Combine the available signals into a score.
+
+Show:
+
+```text
+Risk Score: 78/100
+```
+
+The score must change depending on the uploaded email.
+
+Do not always return 94.
+
+---
+
+# 19. REAL THREAT GRAPH
+
+Build the graph from database relationships.
+
+Nodes must come from actual analyzed data:
+
+```text
+Email
+Sender
+Domain
+URL
+IP
+ASN
+Country
+Campaign
+Investigation
+```
+
+If an email contains:
+
+```text
+example.com
+1.2.3.4
+https://example.com/login
+```
+
+the graph should automatically create:
+
+```text
+EMAIL
+ ↓
+DOMAIN
+ ↓
+URL
+ ↓
+IP
+ ↓
+ASN
+ ↓
+COUNTRY
+```
+
+Do not use predefined fake graph relationships.
+
+---
+
+# 20. REAL CAMPAIGN CORRELATION
+
+When multiple emails have been analyzed, automatically search for relationships.
+
+Compare:
+
+* domains
+* URLs
+* IPs
+* ASN
+* sender patterns
+* subject similarity
+* text similarity
+* attachment hashes
+* infrastructure overlap
+
+If related emails are found:
+
+Create a campaign.
+
+If no relationship exists:
+
+Display:
+
+> No correlated campaign identified.
+
+Do not automatically create fake campaigns.
+
+---
+
+# 21. REAL INVESTIGATION CASES
+
+Users must be able to create actual cases.
+
+Button:
+
+### `CREATE INVESTIGATION`
+
+Form:
+
+```text
+Case Title
+Severity
+Description
+Assigned Analyst
+Related Emails
+```
+
+Save to PostgreSQL.
+
+Users can:
+
+* Open case
+* Add evidence
+* Add findings
+* Add emails
+* Add indicators
+* Change status
+* Add notes
+* Assign analyst
+* Generate report
+
+---
+
+# 22. REAL CHAIN OF CUSTODY
+
+Every evidence action must generate an audit record.
+
+Track:
+
+```text
+UPLOAD
+HASH
+PARSE
+ANALYZE
+ENRICH
+CORRELATE
+CASE ADDITION
+ANALYST REVIEW
+REPORT GENERATION
+```
+
+Use actual timestamps.
+
+Use actual SHA-256 hashes.
+
+Do not generate fake timestamps.
+
+---
+
+# 23. REAL-TIME UPDATES
+
+Implement real-time communication using:
+
+* WebSockets
+  or
+* Server-Sent Events
+
+When analysis is running:
+
+Frontend receives actual backend status.
+
+Example:
+
+```text
+CONNECTED
+
+Uploading...
+Parsing...
+Extracting indicators...
+Running authentication analysis...
+Enriching IP...
+Enriching domains...
+Running AI analysis...
+Building threat graph...
+Complete
+```
+
+The UI must reflect actual backend progress.
+
+Do not use fake timers.
+
+---
+
+# 24. REAL DASHBOARD
+
+The Overview page must calculate its statistics from PostgreSQL.
+
+For example:
+
+```text
+Emails Analyzed
+COUNT(emails)
+
+Threats Detected
+COUNT(threats)
+
+Critical Threats
+COUNT(findings WHERE severity = critical)
+
+Investigations
+COUNT(investigations)
+
+Domains
+COUNT(domains)
+
+IPs
+COUNT(ips)
+```
+
+If the database is empty:
+
+```text
+0
+```
+
+not:
+
+```text
+18,742
+```
+
+---
+
+# 25. REAL-TIME ACTIVITY FEED
+
+Activity should come from actual system events.
+
+Examples:
+
+```text
+Email uploaded
+
+Analysis completed
+
+Threat detected
+
+IP enriched
+
+Domain resolved
+
+Investigation created
+
+Evidence added
+
+Report generated
+```
+
+Store these events in the database/audit log.
+
+Display them live using WebSockets/SSE.
+
+---
+
+# 26. REAL REPORT GENERATION
+
+Generate an actual PDF on the backend.
+
+Use:
+
+**ReportLab**
+
+The report must contain actual:
+
+* Email metadata
+* Raw analysis
+* SPF result
+* DKIM result
+* DMARC result
+* URLs
+* Domains
+* IPs
+* Threat intelligence
+* Geolocation
+* Risk score
+* AI explanation
+* Threat graph
+* Evidence
+* SHA-256
+* Investigation information
+* Timestamps
+
+Button:
+
+### `GENERATE PDF`
+
+The backend should actually generate the PDF.
+
+Do not simply show a fake PDF preview.
+
+---
+
+# 27. REAL SEARCH
+
+Global search must query PostgreSQL.
+
+Search:
+
+* Email ID
+* Message ID
+* Sender
+* Recipient
+* Domain
+* IP
+* URL
+* Case ID
+* Campaign
+* Finding
+* Evidence ID
+
+Return actual records.
+
+---
+
+# 28. REAL AUTHENTICATION
+
+Implement real authentication.
+
+Support:
+
+* Login
+* Logout
+* Registration where appropriate
+* Password hashing
+* Session/JWT authentication
+* Role-based access
+
+Roles:
+
+### Analyst
+
+Can:
+
+* Analyze emails
+* Create investigations
+* Add evidence
+* Generate reports
+
+### Admin
+
+Can additionally:
+
+* Manage users
+* Configure integrations
+* View audit logs
+* Manage system settings
+
+---
+
+# 29. REAL SETTINGS
+
+Allow administrators to configure:
+
+### Threat Intelligence
+
+API credentials through secure backend configuration.
+
+### Detection
+
+* Risk thresholds
+* Model configuration
+* Analysis settings
+
+### Notifications
+
+* Critical alerts
+* Campaign alerts
+* Analysis completion
+
+### Security
+
+* Session timeout
+* Evidence retention
+* Audit logging
+
+---
+
+# 30. API DESIGN
+
+Implement actual APIs:
+
+```text
+POST   /api/auth/login
+POST   /api/auth/logout
+GET    /api/auth/me
+
+POST   /api/emails/upload
+GET    /api/emails
+GET    /api/emails/{id}
+
+POST   /api/emails/{id}/analyze
+GET    /api/emails/{id}/analysis
+GET    /api/emails/{id}/status
+
+GET    /api/emails/{id}/headers
+GET    /api/emails/{id}/authentication
+
+GET    /api/emails/{id}/urls
+GET    /api/emails/{id}/domains
+GET    /api/emails/{id}/ips
+
+GET    /api/ips/{ip}
+GET    /api/domains/{domain}
+GET    /api/urls/{url}
+
+GET    /api/emails/{id}/relay-trace
+GET    /api/emails/{id}/geolocation
+GET    /api/emails/{id}/graph
+
+GET    /api/campaigns
+GET    /api/campaigns/{id}
+
+GET    /api/findings
+PATCH  /api/findings/{id}
+
+GET    /api/investigations
+POST   /api/investigations
+GET    /api/investigations/{id}
+PATCH  /api/investigations/{id}
+
+GET    /api/evidence
+POST   /api/evidence
+
+GET    /api/audit
+
+GET    /api/dashboard/stats
+GET    /api/dashboard/activity
+
+POST   /api/reports
+GET    /api/reports/{id}
+GET    /api/reports/{id}/download
+
+POST   /api/ai/analyze
+```
+
+All endpoints must be connected to the frontend.
+
+---
+
+# 31. REAL FILE STORAGE
+
+Store uploaded email files securely.
+
+Use:
+
+* local storage for development
+* S3-compatible object storage for production
+
+Never expose arbitrary filesystem paths.
+
+Validate:
+
+* file type
+* file size
+* MIME type
+
+Sanitize filenames.
+
+---
+
+# 32. SECURITY REQUIREMENTS
+
+Implement:
+
+* Input validation
+* Authentication
+* Authorization
+* Password hashing
+* CORS configuration
+* Rate limiting
+* Secure file upload
+* File size limits
+* SQL injection protection
+* XSS protection
+* CSRF protection where applicable
+* API key protection
+* Secure HTTP headers
+* Audit logs
+
+Never expose:
+
+```text
+API keys
+database passwords
+JWT secrets
+internal filesystem paths
+```
+
+in frontend code.
+
+---
+
+# 33. PRIVACY
+
+Email content can contain sensitive information.
+
+Implement:
+
+* Access controls
+* Encryption where appropriate
+* Data retention configuration
+* Email masking options
+* Secure evidence storage
+* Audit trails
+
+Do not send uploaded email content to external AI providers unless the user/admin explicitly configures and permits it.
+
+---
+
+# 34. EXTERNAL API CONFIGURATION
+
+Create a `.env.example`.
+
+Example:
+
+```env
+DATABASE_URL=
+
+REDIS_URL=
+
+JWT_SECRET=
+
+VIRUSTOTAL_API_KEY=
+ABUSEIPDB_API_KEY=
+IPINFO_TOKEN=
+
+STORAGE_BUCKET=
+STORAGE_ACCESS_KEY=
+STORAGE_SECRET_KEY=
+```
+
+If an API key is not configured, show:
+
+> Integration not configured
+
+Never substitute fake intelligence.
+
+---
+
+# 35. OFFLINE / LIMITED MODE
+
+The application may still operate partially without external intelligence APIs.
+
+For example:
+
+### Available
+
+* Email parsing
+* MIME analysis
+* Header extraction
+* URL extraction
+* SPF/DKIM/DMARC parsing where possible
+* SHA-256
+* Local AI model
+* Threat graph construction
+* Case management
+* Reporting
+
+### Unavailable
+
+External reputation lookup.
+
+Display:
+
+> External threat intelligence integration is not configured.
+
+Do not fabricate the missing result.
+
+---
+
+# 36. EMPTY STATES
+
+Every page must have proper empty states.
+
+Example:
+
+# 📭 No Emails Analyzed Yet
+
+Upload your first `.eml` file to begin investigation.
+
+Button:
+
+### `UPLOAD EMAIL`
+
+Similarly:
+
+> No investigations yet.
+
+> No correlated campaigns found.
+
+> No threat indicators available.
+
+This is preferable to fake information.
+
+---
+
+# 37. UI DESIGN
+
+Although the system is technically serious, make the frontend modern and visually exciting.
+
+Use:
+
+* Dark theme
+* Blue/cyan/purple accents
+* Glass cards
+* Neon highlights
+* Smooth animations
+* Interactive graphs
+* Animated threat pipeline
+* Beautiful maps
+* Modern typography
+* Responsive layouts
+
+The website should feel like a **next-generation AI cybersecurity startup**.
+
+---
+
+# 38. REAL DATA INDICATOR
+
+Every page should clearly indicate the data source.
+
+Example:
+
+```text
+● LIVE DATA
+Database Connected
+```
+
+or:
+
+```text
+● ANALYSIS RESULT
+Generated from uploaded email
+```
+
+For external intelligence:
+
+```text
+● THREAT INTELLIGENCE
+Source: Configured Provider
+```
+
+Never call simulated information "live".
+
+---
+
+# 39. SIH DEMO MODE — REAL DATA ONLY
+
+Create an optional:
+
+# 🚀 SIH DEMO MODE
+
+But the demo must use an actual uploaded email.
+
+The workflow:
+
+```text
+Upload Email
+      ↓
+Real MIME Parsing
+      ↓
+Real Header Analysis
+      ↓
+Real SPF/DKIM/DMARC
+      ↓
+Real URL Extraction
+      ↓
+Real Domain/IP Enrichment
+      ↓
+Real AI Analysis
+      ↓
+Real Risk Score
+      ↓
+Real Threat Graph
+      ↓
+Real Campaign Correlation
+      ↓
+Real Investigation
+      ↓
+Real PDF Report
+```
+
+The demo should never secretly use hardcoded results.
+
+---
+
+# 40. DEVELOPMENT PRIORITY
+
+Build in this order.
+
+## PRIORITY 1 — CORE FUNCTIONALITY
+
+1. PostgreSQL
+2. FastAPI
+3. Authentication
+4. Email upload
+5. MIME parsing
+6. Header extraction
+7. SHA-256
+8. URL/domain/IP extraction
+9. Dashboard database integration
+
+## PRIORITY 2 — SECURITY ANALYSIS
+
+10. SPF
+11. DKIM
+12. DMARC
+13. URL analysis
+14. Domain analysis
+15. IP intelligence
+16. GeoIP
+
+## PRIORITY 3 — AI
+
+17. Feature extraction
+18. Threat classification
+19. Risk scoring
+20. Explainable AI
+
+## PRIORITY 4 — CORRELATION
+
+21. Threat graph
+22. Campaign correlation
+23. Findings
+24. Investigations
+
+## PRIORITY 5 — FORENSICS
+
+25. Evidence
+26. Chain of custody
+27. Audit logs
+
+## PRIORITY 6 — REPORTING
+
+28. PDF generation
+29. Report history
+30. Report download
+
+## PRIORITY 7 — REAL-TIME UX
+
+31. WebSockets/SSE
+32. Live analysis progress
+33. Live activity feed
+34. Notifications
+
+## PRIORITY 8 — VISUAL POLISH
+
+35. Animations
+36. Graph interactions
+37. Map interactions
+38. Responsive design
+39. Accessibility
+40. Performance optimization
+
+---
+
+# 41. NO DEAD BUTTONS
+
+Every visible button must perform an actual action.
+
+Examples:
+
+`ANALYZE EMAIL`
+
+→ starts backend analysis.
+
+`VIEW EVIDENCE`
+
+→ opens actual evidence.
+
+`CREATE INVESTIGATION`
+
+→ creates database record.
+
+`GENERATE PDF`
+
+→ generates actual PDF.
+
+`SEARCH`
+
+→ queries database.
+
+`ADD TO CASE`
+
+→ creates actual relationship.
+
+`DOWNLOAD`
+
+→ downloads actual generated file.
+
+If a feature is not implemented, do not show the button.
+
+---
+
+# 42. ERROR HANDLING
+
+Every backend failure must have a useful frontend response.
+
+Examples:
+
+```text
+Upload failed.
+
+Analysis failed.
+
+Threat intelligence unavailable.
+
+Invalid email format.
+
+File too large.
+
+Authentication failed.
+
+Report generation failed.
+
+Database unavailable.
+```
+
+Do not silently fail.
+
+Do not show fake successful results after errors.
+
+---
+
+# 43. PERFORMANCE
+
+Use:
+
+* Pagination
+* Lazy loading
+* API caching where appropriate
+* Background analysis
+* Database indexing
+* Async external API calls
+* Efficient graph rendering
+* Streaming analysis status
+
+Large email files should not freeze the browser.
+
+---
+
+# 44. FINAL USER EXPERIENCE
+
+The user should be able to start with:
+
+### Upload Email
+
+and end with:
+
+### Complete Forensic Investigation
+
+without manually entering fake information.
+
+The actual workflow should be:
+
+```text
+REAL EMAIL
+   ↓
+REAL PARSING
+   ↓
+REAL AUTHENTICATION ANALYSIS
+   ↓
+REAL AI DETECTION
+   ↓
+REAL THREAT INTELLIGENCE
+   ↓
+REAL GEOLOCATION
+   ↓
+REAL RELAY TRACE
+   ↓
+REAL THREAT GRAPH
+   ↓
+REAL CORRELATION
+   ↓
+REAL INVESTIGATION
+   ↓
+REAL EVIDENCE
+   ↓
+REAL PDF REPORT
+```
+
+---
+
+# 45. FINAL QUALITY STANDARD
+
+Before considering the application complete, test the following:
+
+### Upload Test
+
+Upload a real `.eml`.
+
+Verify that the backend parses it.
+
+### Header Test
+
+Verify actual headers appear.
+
+### Authentication Test
+
+Verify SPF/DKIM/DMARC results are based on actual analysis.
+
+### URL Test
+
+Verify URLs come from the uploaded email.
+
+### IP Test
+
+Verify IPs come from actual headers/content.
+
+### Intelligence Test
+
+Verify external API results are real or clearly marked unavailable.
+
+### AI Test
+
+Verify risk changes based on the actual email.
+
+### Graph Test
+
+Verify graph nodes come from actual analysis.
+
+### Investigation Test
+
+Create a case and reload the page.
+
+The case must remain in PostgreSQL.
+
+### Evidence Test
+
+Add evidence.
+
+Reload.
+
+Evidence must remain.
+
+### Report Test
+
+Generate a PDF.
+
+Download it.
+
+Open it.
+
+Verify it contains the actual analyzed email information.
+
+### Real-Time Test
+
+Run an analysis and verify the frontend receives actual backend progress.
+
+---
+
+# 46. ABSOLUTE RULE
+
+## NEVER FAKE DATA.
+
+If there is no data:
+
+**show no data.**
+
+If an API is unavailable:
+
+**show unavailable.**
+
+If an AI model cannot classify:
+
+**show classification unavailable.**
+
+If geolocation cannot be determined:
+
+**show location unavailable.**
+
+If campaign correlation finds nothing:
+
+**show no correlation found.**
+
+Accuracy and transparency are more important than making the dashboard look populated.
+
+---
+
+# 47. FINAL PRODUCT
+
+The final MailTrace AI application should be a genuinely usable cybersecurity investigation platform.
+
+It should combine:
+
+🧠 **AI Threat Detection**
+
+📧 **Real Email Forensics**
+
+🔐 **SPF / DKIM / DMARC**
+
+🌐 **Real Threat Intelligence**
+
+📡 **SMTP Relay Analysis**
+
+📍 **Real IP Geolocation**
+
+🕸️ **Dynamic Threat Graph**
+
+🧬 **Campaign Correlation**
+
+🧪 **Digital Forensics**
+
+🔒 **Chain of Custody**
+
+📊 **Real-Time Dashboard**
+
+📄 **Actual PDF Reports**
+
+🔐 **Authentication & RBAC**
+
+⚡ **Real-Time Analysis Updates**
+
+---
+
+# FINAL USP
+
+# **Most tools tell you an email is dangerous.**
+
+# **MailTrace AI tells you WHY, WHERE, HOW, and WHAT IS CONNECTED TO IT.**
+
+And unlike a mock hackathon dashboard:
+
+# **Every result must come from real analysis.**
+
+## **MAILTRACE AI**
+
+### **Detect. Trace. Correlate. Investigate.**
+
+Build it as a **production-quality, full-stack, real-time application — not a static prototype or simulated dashboard.**

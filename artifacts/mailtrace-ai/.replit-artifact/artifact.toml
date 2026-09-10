@@ -1,0 +1,28 @@
+kind = "web"
+previewPath = "/"
+title = "MailTrace AI"
+description = "A real-time email forensics and threat investigation platform that parses uploaded messages, explains risk signals, traces infrastructure, correlates findings, and produces evidence-backed reports."
+version = "1.0.0"
+id = "artifacts/mailtrace-ai"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 18260
+
+[services.development]
+run = "pnpm --filter @workspace/mailtrace-ai run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/mailtrace-ai", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/mailtrace-ai/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "18260"
+BASE_PATH = "/"

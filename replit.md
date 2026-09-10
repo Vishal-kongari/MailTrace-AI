@@ -1,6 +1,6 @@
-# [Project name]
+# MailTrace AI
 
-_Replace the heading above with the project's name, and this line with one sentence describing what this app does for users._
+MailTrace AI turns uploaded email evidence into persisted, explainable threat analysis and investigation records.
 
 ## Run & Operate
 
@@ -22,23 +22,32 @@ _Replace the heading above with the project's name, and this line with one sente
 
 ## Where things live
 
-_Populate as you build — short repo map plus pointers to the source-of-truth file for DB schema, API contracts, theme files, etc._
+- `artifacts/mailtrace-ai/src/pages/mailtrace.tsx` — routed analyst workspace UI
+- `artifacts/api-server/src/routes/mailtrace.ts` — upload, parsing, analysis, graph, investigations, and reports
+- `lib/api-spec/openapi.yaml` — source-of-truth API contract
+- `lib/db/src/schema/mailtrace.ts` — persisted MailTrace records
+- `artifacts/mailtrace-ai/src/index.css` — cyber-forensics theme tokens
 
 ## Architecture decisions
 
-_Populate as you build — non-obvious choices a reader couldn't infer from the code (3-5 bullets)._
+- Email risk signals are calculated from observed headers and body content; unavailable external enrichment stays explicitly unavailable.
+- Uploaded evidence is hashed and written to a restricted local development evidence directory while structured analysis is persisted in PostgreSQL.
+- The dashboard intentionally starts empty and populates only after a real email upload.
 
 ## Product
 
-_Describe the high-level user-facing capabilities of this app once they exist._
+- Upload `.eml`, `.msg`, or `.txt` email evidence.
+- Parse headers, authentication results, URLs, domains, IPs, and relay hops.
+- Produce evidence-backed risk findings, threat graph relationships, investigations, and report downloads.
 
 ## User preferences
 
-_Populate as you build — explicit user instructions worth remembering across sessions._
+ - Never present fabricated threat intelligence or populated dashboard values.
 
 ## Gotchas
 
-_Populate as you build — sharp edges, "always run X before Y" rules._
+- Use `pnpm --filter @workspace/api-spec run codegen` after changing `lib/api-spec/openapi.yaml`.
+- API and web workflows are managed artifacts; restart them by their exact managed workflow names.
 
 ## Pointers
 
